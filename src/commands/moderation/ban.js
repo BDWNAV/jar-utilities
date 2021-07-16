@@ -1,28 +1,27 @@
 const Discord = require("discord.js");
-const mongoose = require("mongoose");
 const moderationSchema = require("../../models/moderationSchema");
 
 module.exports.run = async (client, message, args) => {
   const member = message.mentions.members.first();
   const reason = args.slice(1).join(" ");
-
-  if(!message.member.hasPermission("KICK_MEMBERS")) {
+  
+  if(!message.member.hasPermission("BAN_MEMBERS")) {
     return message.channel.send("You do not have the sufficient permission to use this command.");
   } else {
     if(!member) {
-      return message.channel.send("There was no member provided."); 
+      return message.channel.send("There was no member provided.");
     } else {
       if(!reason) {
-        return message.channel.send("There was no reason provided to kick the member.");
+        return message.channel.send("There was no reason provided to ban the member.");
       } else {
-        member.kick({ reason: reason }).then(() => {
+        message.guild.members.ban(member).then(() => {
           const logs = message.guild.channels.cache.get("865439604097941575");
 
           const newUserData = new moderationSchema({
             guildID: message.guild.id,
             userID: member.id,
             reason: reason,
-            punishmentType: 'Kick',
+            punishmentType: 'Ban',
             moderator: message.author.id,
           });
   
@@ -30,10 +29,10 @@ module.exports.run = async (client, message, args) => {
   
           const successEmbed = new Discord.MessageEmbed()
           .setTitle("Member kicked")
-          .setDescription(`${member} was kicked from the guild.`)
+          .setDescription(`${member} was Banned from the guild.`)
           .addField("User", member)
           .addField("Reason", reason)
-          .addField("Punishment Type", "Kick")
+          .addField("Punishment Type", "Ban")
           .addField("Moderator", `<@${message.author.id}>`)
           .addField("Case", "`" + newUserData._id + "`")
           .setFooter("Member kicked")
@@ -46,12 +45,12 @@ module.exports.run = async (client, message, args) => {
       }
     }
   }
-};
+}
 
 module.exports.help = {
-  name: "kick",
-  description: "Kick a member from the guild.",
-  aliases: ["k"],
+  name: "ban",
+  description: "Ban a member from the guild.",
+  aliases: ["B"],
   category: "moderation",
   usage: "<user> <reason>",
   minArgs: 10,
