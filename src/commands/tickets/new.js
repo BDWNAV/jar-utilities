@@ -21,6 +21,7 @@ module.exports.run = async (client, message, args) => {
         ],
       })
       .then((Tchannel) => {
+        Tchannel.setParent("865818991552888872");
         Tchannel.send(
           `Thank you for opening a ticket, in the mean while please elaborate why you created the ticket. Reason: ${reason}`
         );

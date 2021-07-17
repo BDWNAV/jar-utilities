@@ -41,6 +41,7 @@ module.exports.run = async (client, message, args) => {
           .setFooter("Member warned ")
           .setTimestamp();
         message.channel.send(successEmbed);
+        logs.send(successEmbed);
       }
     }
   }
