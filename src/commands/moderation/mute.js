@@ -36,7 +36,8 @@ module.exports.run = async (client, message, args) => {
                 "There was no reason provided to mute the member."
               );
             } else {
-              const logs = message.guild.channels.cache.get("865439604097941575");
+              const logs =
+                message.guild.channels.cache.get("865439604097941575");
 
               const userRoles = member.roles.cache.array();
 
@@ -82,7 +83,7 @@ module.exports.run = async (client, message, args) => {
                 member.roles.add(saveRoles.roles);
 
                 await muteSchema.deleteOne({
-                  userID: member.id
+                  userID: member.id,
                 });
 
                 const unmutedEmbed = new Discord.MessageEmbed()
