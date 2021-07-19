@@ -45,16 +45,26 @@ module.exports.run = async (client, message, args) => {
                 return r.id;
               });
 
+              const filter = getRoles.filter(
+                (role) => role !== "850166096950067210"
+              );
+
               const saveRoles = new muteSchema({
                 guildID: message.guild.id,
                 userID: member.id,
-                roles: getRoles,
+                roles: filter,
               });
 
               saveRoles.save();
 
-              member.roles.remove(getRoles);
-              member.roles.add("863376286135484427");
+              member.roles
+                .remove(saveRoles.roles)
+                .then(() => {
+                  member.roles.add("863376286135484427");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
 
               const newUserData = new moderationSchema({
                 guildID: message.guild.id,
@@ -82,7 +92,11 @@ module.exports.run = async (client, message, args) => {
                 member.roles.remove("863376286135484427");
                 member.roles.add(saveRoles.roles);
 
-                await muteSchema.deleteOne({
+                let muteData = await muteSchema.findOne({
+                  userID: member.id,
+                });
+
+                await muteData.deleteOne({
                   userID: member.id,
                 });
 
