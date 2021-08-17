@@ -9,32 +9,32 @@ module.exports.run = async (client, message, args) => {
   const reason = args.slice(2).join(" ");
 
   if (!message.member.hasPermission("KICK_MEMBERS")) {
-    return message.channel.send(
-      "You do not have sufficient permission to use this command."
-    );
+    return message.channel.send({
+      content: "You do not have sufficient permission to use this command."
+    });
   } else {
     if (!member) {
-      return message.channel.send("There was no member provided to mute.");
+      return message.channel.send({ content: "There was no member provided to mute." });
     } else {
       if (!time) {
-        return message.channel.send(
-          "There was no amount of time provided to mute the member."
-        );
+        return message.channel.send({
+          content: "There was no amount of time provided to mute the member."
+        });
       } else {
         if (time.endsWith("y")) {
-          return message.channel.send(
-            "The time that you have provided to mute the user is to long."
-          );
+          return message.channel.send({
+            content: "The time that you have provided to mute the user is to long."
+          });
         } else {
           if (isNaN(ms(time))) {
-            return message.channel.send(
-              "The value you have provided is not a number."
-            );
+            return message.channel.send({
+              content: "The value you have provided is not a number."
+            });
           } else {
             if (!reason) {
-              return message.channel.send(
-                "There was no reason provided to mute the member."
-              );
+              return message.channel.send({
+                content: "There was no reason provided to mute the member."
+            });
             } else {
               const logs =
                 message.guild.channels.cache.get("865439604097941575");
@@ -79,14 +79,14 @@ module.exports.run = async (client, message, args) => {
               const mutedEmbed = new Discord.MessageEmbed()
                 .setTitle("Member muted")
                 .setDescription(`${member} was muted.`)
-                .addField("User", member)
+                .addField("User", `<@${member.id}>`)
                 .addField("Punishment Type", "Mute")
                 .addField("Moderator", `<@${message.author.id}>`)
                 .addField("Case", "`" + newUserData._id + "`")
                 .setFooter("Member muted")
                 .setTimestamp();
-              message.channel.send(mutedEmbed);
-              logs.send(mutedEmbed);
+              message.channel.send({ embeds: [mutedEmbed] });
+              logs.send({ embeds: [mutedEmbed] });
 
               setTimeout(async function () {
                 member.roles.remove("863376286135484427");
@@ -103,13 +103,13 @@ module.exports.run = async (client, message, args) => {
                 const unmutedEmbed = new Discord.MessageEmbed()
                   .setTitle("Member unmuted")
                   .setDescription(`${member} was unmuted.`)
-                  .addField("User", member)
+                  .addField("User", `<@${member.id}>`)
                   .addField("Punishment Type", "Mute")
                   .addField("Moderator", `<@${message.author.id}>`)
                   .addField("Case", "`" + newUserData._id + "`")
                   .setFooter("Member unmuted")
                   .setTimestamp();
-                logs.send(unmutedEmbed);
+                logs.send({ emebeds: [unmutedEmbed] });
               }, ms(time));
             }
           }

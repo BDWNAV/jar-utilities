@@ -5,18 +5,18 @@ module.exports.run = async (client, message, args) => {
   const member = message.mentions.members.first();
   const reason = args.slice(1).join(" ");
 
-  if (!message.member.hasPermission("KICK_MEMBERS")) {
-    return message.channel.send(
-      "You do not have sufficient permission to use this command."
-    );
+  if (!message.member.permissions.has("KICK_MEMBERS")) {
+    return message.channel.send({
+      content: "You do not have sufficient permission to use this command."
+    });
   } else {
     if (!member) {
-      return message.channel.send("There was no member provided to warn.");
+      return message.channel.send({ content: "There was no member provided to warn." });
     } else {
       if (!reason) {
-        return message.channel.send(
-          "There was no reason provided to warn the member."
-        );
+        return message.channel.send({
+          content: "There was no reason provided to warn the member."
+        });
       } else {
         const logs = message.guild.channels.cache.get("865439604097941575");
 
@@ -33,15 +33,15 @@ module.exports.run = async (client, message, args) => {
         const successEmbed = new Discord.MessageEmbed()
           .setTitle("Member kicked")
           .setDescription(`${member} was Warned.`)
-          .addField("User", member)
+          .addField("User", `<@${member.id}>`)
           .addField("Reason", reason)
           .addField("Punishment Type", "Warn")
           .addField("Moderator", `<@${message.author.id}>`)
           .addField("Case", "`" + newUserData._id + "`")
           .setFooter("Member warned ")
           .setTimestamp();
-        message.channel.send(successEmbed);
-        logs.send(successEmbed);
+        message.channel.send({ embeds: [successEmbed] });
+        logs.send({ emebds: [successEmbed] });
       }
     }
   }

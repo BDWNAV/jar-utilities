@@ -32,13 +32,14 @@ module.exports.run = async (client, message, args) => {
           true
         );
       });
-      channel.send(help);
+      channel.send({ embeds: [help] });
       return;
     } else {
       if (!categories.includes(args[0])) {
         // if the user provided an invalid category, send an error message
-        channel.send(
-          new MessageEmbed()
+        channel.send({
+          embeds: [
+            new MessageEmbed()
             .setColor(color.positive)
             .setAuthor(
               author.tag,
@@ -51,7 +52,8 @@ module.exports.run = async (client, message, args) => {
             .setTitle(`${emoji.negative} Error!`)
             .addField("Invalid Argument", "You must specify a valid category!")
             .setFooter(footer)
-        );
+          ]
+        });
         return;
       }
 
@@ -90,7 +92,7 @@ module.exports.run = async (client, message, args) => {
           true
         );
       });
-      channel.send(help);
+      channel.send({ embeds: [help] });
     }
   }, 10);
 };

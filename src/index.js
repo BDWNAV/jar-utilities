@@ -1,6 +1,6 @@
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, Intents } = require("discord.js");
 const mongoose = require("mongoose");
-const client = new Client({ disableMentions: "everyone" });
+const client = new Client({ intents: new Intents(32767) });
 
 client.config = require("./config.js"); // Make all variables in the config.js file available through client.config
 ["commands", "aliases"].forEach((x) => (client[x] = new Collection())); // Create collections for the bot commands and their aliases

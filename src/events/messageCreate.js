@@ -50,8 +50,9 @@ module.exports = async (client, message) => {
   } = command.help;
 
   if (ownerOnly == true && !owners.includes(author.id)) {
-    channel.send(
-      new MessageEmbed()
+    channel.send({
+      embeds: [
+        new MessageEmbed()
         .setColor(color.negative)
         .setAuthor(
           author.tag,
@@ -63,13 +64,15 @@ module.exports = async (client, message) => {
           "To run this command, you need to be a bot owner!"
         )
         .setFooter(footer)
-    );
+      ]
+    });
     return;
   }
   if (dm === true && channel.type !== "dm") {
     message.delete({ reason: "Inocrrect use of the setup command." });
-    channel.send(
-      new MessageEmbed()
+    channel.send({
+      embeds: [
+        new MessageEmbed()
         .setColor(color.negative)
         .setAuthor(
           author.tag,
@@ -78,11 +81,13 @@ module.exports = async (client, message) => {
         .setTitle(`${emoji.negative} Error!`)
         .addField("Invalid Usage", "This command must be ran in DMs!")
         .setFooter(footer)
-    );
+      ]
+    });
     return;
   } else if (dm === false && channel.type === "dm") {
-    channel.send(
-      new MessageEmbed()
+    channel.send({
+      embeds: [      
+        new MessageEmbed()
         .setColor(color.negative)
         .setAuthor(
           author.tag,
@@ -90,30 +95,15 @@ module.exports = async (client, message) => {
         )
         .setTitle(`${emoji.negative} Error!`)
         .addField("Invalid Usage", "This command must be ran in a server!")
-        .setFooter(footer)
-    );
+        .setFooter(footer)]
+    });
     return;
   }
   if (requiredPerms && requiredPerms.length) {
     for (perm of requiredPerms) {
       if (!member.hasPermission(perm)) {
         channel.send(
-          new MessageEmbed()
-            .setColor(color.negative)
-            .setAuthor(
-              author.tag,
-              author.displayAvatarURL({
-                format: "png",
-                dynamic: true,
-                size: 1024,
-              })
-            )
-            .setTitle(`${emoji.negative} Error!`)
-            .addField(
-              "Invalid permissions",
-              `You need to have the \`${perm}\` permission to run this command!`
-            )
-            .setFooter(footer)
+          embeds
         );
         return;
       }
@@ -124,8 +114,9 @@ module.exports = async (client, message) => {
       const req = guild.roles.cache.get(role);
 
       if (!member.roles.cache.get(req.id)) {
-        channel.send(
-          new MessageEmbed()
+        channel.send({
+          embeds: [
+            new MessageEmbed()
             .setColor(color.negative)
             .setAuthor(
               author.tag,
@@ -141,6 +132,7 @@ module.exports = async (client, message) => {
               `You need to have the \`${req.name}\` role to run this command!`
             )
             .setFooter(footer)
+          ]}
         );
         return;
       }
@@ -156,8 +148,9 @@ module.exports = async (client, message) => {
     reqArgs = `This command requires ${minArgs}-${maxArgs} arguments!`;
 
   if (args.length < minArgs) {
-    channel.send(
-      new MessageEmbed()
+    channel.send({
+      embeds: [
+        new MessageEmbed()
         .setColor(color.negative)
         .setAuthor(
           author.tag,
@@ -169,12 +162,14 @@ module.exports = async (client, message) => {
           `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`
         )
         .setFooter(footer)
-    );
+      ]
+    });
     return;
   }
   if (args.length > maxArgs && maxArgs !== -1) {
-    channel.send(
-      new MessageEmbed()
+    channel.send({
+      embeds: [
+        new MessageEmbed()
         .setColor(color.negative)
         .setAuthor(
           author.tag,
@@ -186,7 +181,8 @@ module.exports = async (client, message) => {
           `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`
         )
         .setFooter(footer)
-    );
+      ]
+    });
     return;
   }
 

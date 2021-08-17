@@ -2,8 +2,8 @@ const Discord = require("discord.js");
 const moderationSchema = require("../../models/moderationSchema");
 
 module.exports.run = async (client, message, args) => {
-  if(!message.member.hasPermission("ADMINISTRATOR")) {
-    return message.channel.send("You do not have the sufficient permission to use this command.");
+  if(!message.member.permisssions.has("ADMINISTRATOR")) {
+    return message.channel.send({ content: "You do not have the sufficient permission to use this command." });
   } else {
     let data = await moderationSchema.findOne({
       _id: args[0] 
@@ -19,9 +19,9 @@ module.exports.run = async (client, message, args) => {
       .addField("Moderator", `<@${data.moderator}>`)
       .addField("Case", "`" + args[0] + "`")
       .setTimestamp()
-      message.channel.send(dataEmbed);
+      message.channel.send({ embeds: [dataEmbed] });
     } else {
-      return message.channel.send("No data for that case.")
+      return message.channel.send({ contnet: "No data for that case." })
     }
   }
 }
