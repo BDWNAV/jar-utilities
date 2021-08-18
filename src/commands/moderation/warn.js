@@ -7,15 +7,17 @@ module.exports.run = async (client, message, args) => {
 
   if (!message.member.permissions.has("KICK_MEMBERS")) {
     return message.channel.send({
-      content: "You do not have sufficient permission to use this command."
+      content: "You do not have sufficient permission to use this command.",
     });
   } else {
     if (!member) {
-      return message.channel.send({ content: "There was no member provided to warn." });
+      return message.channel.send({
+        content: "There was no member provided to warn.",
+      });
     } else {
       if (!reason) {
         return message.channel.send({
-          content: "There was no reason provided to warn the member."
+          content: "There was no reason provided to warn the member.",
         });
       } else {
         const logs = message.guild.channels.cache.get("865439604097941575");

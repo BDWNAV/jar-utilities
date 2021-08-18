@@ -53,18 +53,22 @@ module.exports = async (client, message) => {
     channel.send({
       embeds: [
         new MessageEmbed()
-        .setColor(color.negative)
-        .setAuthor(
-          author.tag,
-          author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 })
-        )
-        .setTitle(`${emoji.negative} Error!`)
-        .addField(
-          "Invalid Permissions",
-          "To run this command, you need to be a bot owner!"
-        )
-        .setFooter(footer)
-      ]
+          .setColor(color.negative)
+          .setAuthor(
+            author.tag,
+            author.displayAvatarURL({
+              format: "png",
+              dynamic: true,
+              size: 1024,
+            })
+          )
+          .setTitle(`${emoji.negative} Error!`)
+          .addField(
+            "Invalid Permissions",
+            "To run this command, you need to be a bot owner!"
+          )
+          .setFooter(footer),
+      ],
     });
     return;
   }
@@ -73,38 +77,45 @@ module.exports = async (client, message) => {
     channel.send({
       embeds: [
         new MessageEmbed()
-        .setColor(color.negative)
-        .setAuthor(
-          author.tag,
-          author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 })
-        )
-        .setTitle(`${emoji.negative} Error!`)
-        .addField("Invalid Usage", "This command must be ran in DMs!")
-        .setFooter(footer)
-      ]
+          .setColor(color.negative)
+          .setAuthor(
+            author.tag,
+            author.displayAvatarURL({
+              format: "png",
+              dynamic: true,
+              size: 1024,
+            })
+          )
+          .setTitle(`${emoji.negative} Error!`)
+          .addField("Invalid Usage", "This command must be ran in DMs!")
+          .setFooter(footer),
+      ],
     });
     return;
   } else if (dm === false && channel.type === "dm") {
     channel.send({
-      embeds: [      
+      embeds: [
         new MessageEmbed()
-        .setColor(color.negative)
-        .setAuthor(
-          author.tag,
-          author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 })
-        )
-        .setTitle(`${emoji.negative} Error!`)
-        .addField("Invalid Usage", "This command must be ran in a server!")
-        .setFooter(footer)]
+          .setColor(color.negative)
+          .setAuthor(
+            author.tag,
+            author.displayAvatarURL({
+              format: "png",
+              dynamic: true,
+              size: 1024,
+            })
+          )
+          .setTitle(`${emoji.negative} Error!`)
+          .addField("Invalid Usage", "This command must be ran in a server!")
+          .setFooter(footer),
+      ],
     });
     return;
   }
   if (requiredPerms && requiredPerms.length) {
     for (perm of requiredPerms) {
       if (!member.hasPermission(perm)) {
-        channel.send(
-          embeds
-        );
+        channel.send(embeds);
         return;
       }
     }
@@ -117,23 +128,23 @@ module.exports = async (client, message) => {
         channel.send({
           embeds: [
             new MessageEmbed()
-            .setColor(color.negative)
-            .setAuthor(
-              author.tag,
-              author.displayAvatarURL({
-                format: "png",
-                dynamic: true,
-                size: 1024,
-              })
-            )
-            .setTitle(`${emoji.negative} Error!`)
-            .addField(
-              "Invalid roles",
-              `You need to have the \`${req.name}\` role to run this command!`
-            )
-            .setFooter(footer)
-          ]}
-        );
+              .setColor(color.negative)
+              .setAuthor(
+                author.tag,
+                author.displayAvatarURL({
+                  format: "png",
+                  dynamic: true,
+                  size: 1024,
+                })
+              )
+              .setTitle(`${emoji.negative} Error!`)
+              .addField(
+                "Invalid roles",
+                `You need to have the \`${req.name}\` role to run this command!`
+              )
+              .setFooter(footer),
+          ],
+        });
         return;
       }
     }
@@ -151,18 +162,22 @@ module.exports = async (client, message) => {
     channel.send({
       embeds: [
         new MessageEmbed()
-        .setColor(color.negative)
-        .setAuthor(
-          author.tag,
-          author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 })
-        )
-        .setTitle(`${emoji.negative} Error!`)
-        .addField(
-          "Not Enough Arguments!",
-          `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`
-        )
-        .setFooter(footer)
-      ]
+          .setColor(color.negative)
+          .setAuthor(
+            author.tag,
+            author.displayAvatarURL({
+              format: "png",
+              dynamic: true,
+              size: 1024,
+            })
+          )
+          .setTitle(`${emoji.negative} Error!`)
+          .addField(
+            "Not Enough Arguments!",
+            `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`
+          )
+          .setFooter(footer),
+      ],
     });
     return;
   }
@@ -170,18 +185,22 @@ module.exports = async (client, message) => {
     channel.send({
       embeds: [
         new MessageEmbed()
-        .setColor(color.negative)
-        .setAuthor(
-          author.tag,
-          author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 })
-        )
-        .setTitle(`${emoji.negative} Error!`)
-        .addField(
-          "Too Many Arguments!",
-          `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`
-        )
-        .setFooter(footer)
-      ]
+          .setColor(color.negative)
+          .setAuthor(
+            author.tag,
+            author.displayAvatarURL({
+              format: "png",
+              dynamic: true,
+              size: 1024,
+            })
+          )
+          .setTitle(`${emoji.negative} Error!`)
+          .addField(
+            "Too Many Arguments!",
+            `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`
+          )
+          .setFooter(footer),
+      ],
     });
     return;
   }

@@ -40,19 +40,22 @@ module.exports.run = async (client, message, args) => {
         channel.send({
           embeds: [
             new MessageEmbed()
-            .setColor(color.positive)
-            .setAuthor(
-              author.tag,
-              author.displayAvatarURL({
-                format: "png",
-                dynamic: true,
-                size: 1024,
-              })
-            )
-            .setTitle(`${emoji.negative} Error!`)
-            .addField("Invalid Argument", "You must specify a valid category!")
-            .setFooter(footer)
-          ]
+              .setColor(color.positive)
+              .setAuthor(
+                author.tag,
+                author.displayAvatarURL({
+                  format: "png",
+                  dynamic: true,
+                  size: 1024,
+                })
+              )
+              .setTitle(`${emoji.negative} Error!`)
+              .addField(
+                "Invalid Argument",
+                "You must specify a valid category!"
+              )
+              .setFooter(footer),
+          ],
         });
         return;
       }
