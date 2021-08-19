@@ -16,4 +16,4 @@ module.exports = async (client, member) => {
   .setImage(member.user.displayAvatarURL({ dynamic: true }))
   .setColor("#00FF00")
   welcomeChannel.send({ embeds: [welcomeEmbed] }); 
-}
+} 
