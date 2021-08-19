@@ -23,7 +23,7 @@ module.exports.run = async (client, message, args) => {
         .setTimestamp();
       message.channel.send({ embeds: [dataEmbed] });
     } else {
-      return message.channel.send({ contnet: "No data for that case." });
+      return message.channel.send({ content: "No data for that case." });
     }
   }
 };
