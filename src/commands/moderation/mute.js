@@ -39,13 +39,16 @@ module.exports.run = async (client, message, args) => {
                 content: "There was no reason provided to mute the member.",
               });
             } else {
-              const logs = message.guild.channels.cache.get("865439604097941575");
+              const logs =
+                message.guild.channels.cache.get("865439604097941575");
 
               const getRoles = member.roles.cache.map((role) => {
                 return role.id;
               });
 
-              const filter = getRoles.filter((role) => role !== "850166096950067210");
+              const filter = getRoles.filter(
+                (role) => role !== "850166096950067210"
+              );
 
               const saveRoles = new muteSchema({
                 guildID: message.guild.id,
@@ -55,7 +58,8 @@ module.exports.run = async (client, message, args) => {
 
               saveRoles.save();
 
-              member.roles.remove(saveRoles.roles)
+              member.roles
+                .remove(saveRoles.roles)
                 .then(() => {
                   member.roles.add("863376286135484427");
                 })
@@ -83,6 +87,15 @@ module.exports.run = async (client, message, args) => {
                 .setFooter("Member muted")
                 .setTimestamp();
               message.channel.send({ embeds: [mutedEmbed] });
+
+              const userMutedEmbed = new Discord.MessageEmbed()
+                .setTitle("You were muted")
+                .setDescription(`You were muted in ${message.guild.name}.`)
+                .addField("Reason", reason)
+                .addField("Punishment Type", "Mute")
+                .addField("Moderator", `<@${message.author.id}>`)
+                .addField("Dispute case", "To dispute this case please provide a moderator this id " + "`" + newUserData._id + "`");
+              member.send({ embeds: [userMutedEmbed] });
 
               setTimeout(async function () {
                 member.roles.remove("863376286135484427").then(() => {

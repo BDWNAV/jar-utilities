@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const moderationSchema = require("../../models/moderationSchema");
 
 module.exports.run = async (client, message, args) => {
-  if (!message.member.permissions.has("ADMINISTRATOR")) {
+  if (!message.member.permissions.has("KICK_MEMBERS")) {
     return message.channel.send({
       content: "You do not have the sufficient permission to use this command.",
     });

@@ -33,17 +33,26 @@ module.exports.run = async (client, message, args) => {
         newUserData.save();
 
         const successEmbed = new Discord.MessageEmbed()
-          .setTitle("Member kicked")
+          .setTitle("Member warned")
           .setDescription(`${member} was Warned.`)
           .addField("User", `<@${member.id}>`)
           .addField("Reason", reason)
           .addField("Punishment Type", "Warn")
           .addField("Moderator", `<@${message.author.id}>`)
           .addField("Case", "`" + newUserData._id + "`")
-          .setFooter("Member warned ")
+          .setFooter("Member warned")
           .setTimestamp();
         message.channel.send({ embeds: [successEmbed] });
         logs.send({ emebds: [successEmbed] });
+
+        const userWarnedEmbed = new Discord.MessageEmbed()
+          .setTitle("You were warned")
+          .setDescription(`You were warned in ${message.guild.name}.`)
+          .addField("Reason", reason)
+          .addField("Punishment Type", "Warn")
+          .addField("Moderator", `<@${message.author.id}>`)
+          .addField("Dispute case", "To dispute this case please provide a moderator this id " + "`" + newUserData._id + "`");
+        member.send({ embeds: [userWarnedEmbed] }); 
       }
     }
   }

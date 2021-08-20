@@ -45,6 +45,14 @@ module.exports.run = async (client, message, args) => {
               .setTimestamp();
             message.channel.send({ embeds: [successEmbed] });
             logs.send({ emebds: [successEmbed] });
+
+            const userMutedEmbed = new Discord.MessageEmbed()
+              .setTitle("You were banned")
+              .setDescription(`You were banned from ${message.guild.name}.`)
+              .addField("Reason", reason)
+              .addField("Punishment Type", "Ban")
+              .addField("Moderator", `<@${message.author.id}>`)
+            member.send({ embeds: [userMutedEmbed] });
           })
           .catch((err) => {
             console.log(err);

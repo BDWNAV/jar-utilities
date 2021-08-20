@@ -12,8 +12,8 @@ module.exports = async (client, member) => {
   const welcomeEmbed = new Discord.MessageEmbed()
   .setTitle("Welcome!")
   .setDescription(`Everyone welcome ${member.user.username}, to ${member.guild.name}! We hope you enjoy your stay!`)
-  .addField("User Id", `${member.id}`)
+  .addField("User Id", "`" + member.id + "`")
   .setImage(member.user.displayAvatarURL({ dynamic: true }))
   .setColor("#00FF00")
-  welcomeChannel.send({ embeds: [welcomeEmbed] }); 
+  welcomeChannel.send({ content: `${member}`, embeds: [welcomeEmbed] }); 
 } 

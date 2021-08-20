@@ -46,6 +46,15 @@ module.exports.run = async (client, message, args) => {
               .setTimestamp();
             message.channel.send({ embeds: [successEmbed] });
             logs.send({ embeds: [successEmbed] });
+
+            const userMutedEmbed = new Discord.MessageEmbed()
+              .setTitle("You were kicked")
+              .setDescription(`You were kicked from ${message.guild.name}.`)
+              .addField("Reason", reason)
+              .addField("Punishment Type", "Kick")
+              .addField("Moderator", `<@${message.author.id}>`)
+              .addField("Dispute case", "To dispute this case please provide a moderator this id " + "`" + newUserData._id + "`");
+            member.send({ embeds: [userMutedEmbed] });
           })
           .catch((err) => {
             console.log(err);
