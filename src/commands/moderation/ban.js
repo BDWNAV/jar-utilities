@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args) => {
         message.guild.members
           .ban(member.id, { reason: reason })
           .then(() => {
-            const logs = message.guild.channels.cache.get("865439604097941575");
+            const logs = message.client.channels.cache.get("865439604097941575");
 
             const newUserData = new moderationSchema({
               guildID: message.guild.id,

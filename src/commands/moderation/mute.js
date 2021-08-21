@@ -40,7 +40,7 @@ module.exports.run = async (client, message, args) => {
               });
             } else {
               const logs =
-                message.guild.channels.cache.get("865439604097941575");
+                message.client.channels.cache.get("865439604097941575");
 
               const getRoles = member.roles.cache.map((role) => {
                 return role.id;
@@ -87,6 +87,7 @@ module.exports.run = async (client, message, args) => {
                 .setFooter("Member muted")
                 .setTimestamp();
               message.channel.send({ embeds: [mutedEmbed] });
+              logs.send({ embeds: [mutedEmbed] });
 
               const userMutedEmbed = new Discord.MessageEmbed()
                 .setTitle("You were muted")
@@ -118,7 +119,8 @@ module.exports.run = async (client, message, args) => {
                   .addField("Moderator", `<@${message.author.id}>`)
                   .addField("Case", "`" + newUserData._id + "`")
                   .setFooter("Member unmuted")
-                  .setTimestamp();
+                  .setTimestamp()
+                logs.send({ embeds: [unmutedEmbed] });
               }, ms(time));
             }
           }
