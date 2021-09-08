@@ -64,6 +64,6 @@ module.exports.help = {
   aliases: ["W"],
   category: "moderation",
   usage: "<user> <reason>",
-  minArgs: 10,
+  minArgs: 5,
   maxArgs: 100,
 };

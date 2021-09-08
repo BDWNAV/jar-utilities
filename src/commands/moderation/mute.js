@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const ms = require("ms");
 const moderationSchema = require("../../models/moderationSchema");
-const muteSchema = require("../../models/muteSchema");
 
 module.exports.run = async (client, message, args) => {
   const member = message.mentions.members.first();
@@ -50,16 +49,8 @@ module.exports.run = async (client, message, args) => {
                 (role) => role !== "850166096950067210"
               );
 
-              const saveRoles = new muteSchema({
-                guildID: message.guild.id,
-                userID: member.id,
-                roles: filter,
-              });
-
-              saveRoles.save();
-
               member.roles
-                .remove(saveRoles.roles)
+                .remove(filter)
                 .then(() => {
                   member.roles.add("863376286135484427");
                 })
@@ -99,16 +90,8 @@ module.exports.run = async (client, message, args) => {
               member.send({ embeds: [userMutedEmbed] });
 
               setTimeout(async function () {
-                member.roles.remove("863376286135484427").then(() => {
-                  member.roles.add(saveRoles.roles);
-                });
-
-                let muteData = await muteSchema.findOne({
-                  userID: member.id,
-                });
-
-                await muteData.deleteOne({
-                  userID: member.id,
+                member.roles.remove("863376286135484427").then(async () => {
+                  await member.roles.add(filter);
                 });
 
                 const unmutedEmbed = new Discord.MessageEmbed()
@@ -136,6 +119,6 @@ module.exports.help = {
   aliases: ["m"],
   category: "moderation",
   usage: "<user> <time> <reason>",
-  minArgs: 11,
+  minArgs: 6,
   maxArgs: 101,
 };
