@@ -44,7 +44,7 @@ module.exports.run = async (client, message, args) => {
               .setFooter("Member kicked")
               .setTimestamp();
             message.channel.send({ embeds: [successEmbed] });
-            logs.send({ emebds: [successEmbed] });
+            logs.send({ embeds: [successEmbed] });
 
             const userMutedEmbed = new Discord.MessageEmbed()
               .setTitle("You were banned")
