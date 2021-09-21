@@ -43,7 +43,7 @@ module.exports.run = async (client, message, args) => {
           .setFooter("Member warned")
           .setTimestamp();
         message.channel.send({ embeds: [successEmbed] });
-        logs.send({ emebds: [successEmbed] });
+        logs.send({ embeds: [successEmbed] });
 
         const userWarnedEmbed = new Discord.MessageEmbed()
           .setTitle("You were warned")
